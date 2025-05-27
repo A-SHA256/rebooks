@@ -1,0 +1,26 @@
+.book-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  min-height: 200px;
+  transition: all 0.3s ease-in-out;
+}
+
+.book-list p {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #050505;
+  padding: 2rem 0;
+}
+
+.book-list .MuiCircularProgress-root {
+  display: block;
+  margin: 2rem auto;
+}
