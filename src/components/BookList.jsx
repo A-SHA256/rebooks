@@ -34,13 +34,17 @@ const BookList = ({ query, className, addToCart }) => {
   return (
     <div className={className}>
       {loading ? (
-        <CircularProgress />
+        <div className="centered">
+          <CircularProgress className="retro-loader" />
+        </div>
       ) : books?.length > 0 ? (
         books.map((book) => (
           <Book key={book.key} book={book} addToCart={addToCart} />
         ))
       ) : (
-        <p>No book has been found</p>
+        <div className="centered">
+          <p className="no-books">⚠️ No book has been found</p>
+        </div>
       )}
     </div>
   );

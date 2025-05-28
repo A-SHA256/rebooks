@@ -1,4 +1,4 @@
-/* Base Reset */
+/*
 body {
   margin: 0;
   padding: 0;
@@ -14,3 +14,13 @@ body {
   flex-direction: column;
   gap: 2rem;
 }
+*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+.app {
+  background: linear-gradient(45deg, #ffd6ff, #e7c6ff, #c8b6ff);
+  min-height: 100vh;
+  padding-top: 100px;
+  font-family: 'VT323', monospace;
+}
+

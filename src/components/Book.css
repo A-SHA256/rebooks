@@ -1,3 +1,4 @@
+/*
 .book-container {
   display: flex;
   flex-direction: column;
@@ -52,3 +53,41 @@ p {
 .liked {
   color: red;
 }
+*/
+
+.book-container {
+  background-color: #222;
+  color: #f1f1f1;
+  border: 3px solid #ff006e;
+  padding: 10px;
+  font-family: 'VT323', monospace;
+  transition: transform 0.3s;
+}
+
+.book-container:hover {
+  transform: scale(1.05);
+}
+
+.img-and-author {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.img-and-author img {
+  width: 80px;
+  height: auto;
+  border: 2px solid #ffbe0b;
+}
+
+.authors h2,
+.authors p {
+  margin: 5px 0;
+}
+
+.liked {
+  font-size: 30px;
+  color: #ff006e;
+  cursor: pointer;
+}
+
