@@ -1,31 +1,4 @@
-/*
-.book-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  min-height: 200px;
-  transition: all 0.3s ease-in-out;
-}
 
-.book-list p {
-  grid-column: 1 / -1;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #050505;
-  padding: 2rem 0;
-}
-
-.book-list .MuiCircularProgress-root {
-  display: block;
-  margin: 2rem auto;
-}
-*/
 .book-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -54,3 +27,18 @@
   border: 2px solid #ff006e;
 }
 
+.return {
+  background-color: #ff006e;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.return:hover {
+  background-color: #e60061;
+}

@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import "./Form.css";
+import useBookContext from "../hooks/useBookContext";
 
-const Form = ({ getValue }) => {
+const Form = () => {
   const [value, setValue] = useState("");
+  const { setQuery } = useBookContext();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    getValue(value);
+    setQuery(value);
   };
 
   return (
@@ -21,10 +23,6 @@ const Form = ({ getValue }) => {
       <button type="submit">Search</button>
     </form>
   );
-};
-
-Form.propTypes = {
-  getValue: PropTypes.func.isRequired,
 };
 
 export default Form;

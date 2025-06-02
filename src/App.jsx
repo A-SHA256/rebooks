@@ -1,44 +1,33 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import BookList from "./components/BookList";
 import Cart from "./components/Cart";
+import Favorites from "./components/Favorites";
+import NotFound from "./components/NotFound";
+import {Routes, Route } from 'react-router-dom';
+import BookProvider from "./providers/BookProvider";
 
 const App = () => {
-  const [value, setValue] = useState("");
-  const [arr, setArr] = useState([]);
-  const [title, setTitle] = useState("");
-  const [like, setLike] = useState(false);
-
-  const getValue = (query) => {
-    setValue(query);
-  };
-
-  const addToCart = (title, like) => {
-    setTitle(title);
-    setLike(like);
-  };
-
-  useEffect(() => {
-    const favorites = () => {
-      if (like) {
-        setArr((prev) => [...prev, title]);
-      } else {
-        setArr((prev) => prev.filter((book) => book !== title));
-      }
-    };
-    favorites();
-  }, [title, like]);
-
   return (
-    <div className="app">
-      <Cart className="cart" list={arr} />
-      <Form getValue={getValue} />
-      <BookList className="book-list" query={value} addToCart={addToCart} />
-    </div>
+    <BookProvider>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Cart className="cart" />
+              <Form />
+              <BookList className="book-list" isFavorite={false} />
+            </>
+          }
+        />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BookProvider>
   );
 };
 
 export default App;
 
-//<div className='placeholder'></div>
+

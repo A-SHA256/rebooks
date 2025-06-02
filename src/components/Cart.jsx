@@ -1,34 +1,26 @@
-import { useState } from "react";
+import useBookContext from "../hooks/useBookContext";
 import { BsCart2 } from "react-icons/bs";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Cart = ({ className, list }) => {
-  const [items, setItems] = useState([]);
+const Cart = ({ className }) => {
+  const { added } = useBookContext();
+  const navigate = useNavigate();
 
   return (
     <div className={className}>
-      {list.length}
+      {added.length}
       <BsCart2
-        onClick={() => {
-          if (document.querySelector(".cart-items").children.length > 0) {
-            document.querySelector(".cart-items").innerHTML = "";
-            return;
-          }
-          list.map((title) => setItems((prev) => [...prev, title]));
-        }}
+        onClick={() => navigate('/favorites')}
       />
-      <div className="cart-items">
-        {items.length > 0
-          ? items.map((item, index) => (
-              <>
-                <p key={index}>{item}</p>
-                <div></div>
-              </>
-            ))
-          : ""}
-      </div>
     </div>
   );
+};
+
+
+Cart.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Cart;

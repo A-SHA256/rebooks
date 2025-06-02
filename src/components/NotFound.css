@@ -1,0 +1,20 @@
+.not-found {
+    color: #ff006e;
+    font-size: 36px;
+    font-weight: bold;
+    background-color: #000;
+    padding: 40px 60px;
+    display: inline-block;
+    border: 3px solid #ff006e;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+  }
+  
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #111; /* Optional darker background */
+  }

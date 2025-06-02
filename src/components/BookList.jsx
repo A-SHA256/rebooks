@@ -4,10 +4,13 @@ import axios from "axios";
 import Book from "./Book";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./BookList.css";
+import useBookContext from "../hooks/useBookContext";
 
-const BookList = ({ query, className, addToCart }) => {
+const BookList = ({ className, isFavorite }) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const { query, added } = useBookContext();
 
   useEffect(() => {
     if (!query) return;
@@ -37,10 +40,16 @@ const BookList = ({ query, className, addToCart }) => {
         <div className="centered">
           <CircularProgress className="retro-loader" />
         </div>
+      ) : isFavorite ? (
+        added?.length > 0 ? (
+          added.map((book) => <Book key={book.key} book={book} />)
+        ) : (
+          <div className="centered">
+            <p className="no-books">⚠️ No favorite books </p>
+          </div>
+        )
       ) : books?.length > 0 ? (
-        books.map((book) => (
-          <Book key={book.key} book={book} addToCart={addToCart} />
-        ))
+        books.map((book) => <Book key={book.key} book={book} />)
       ) : (
         <div className="centered">
           <p className="no-books">⚠️ No book has been found</p>
@@ -51,9 +60,8 @@ const BookList = ({ query, className, addToCart }) => {
 };
 
 BookList.propTypes = {
-  query: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired
 };
 
 export default BookList;

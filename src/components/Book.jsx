@@ -1,10 +1,37 @@
 import PropTypes from "prop-types";
 import { CiHeart } from "react-icons/ci";
 import "./Book.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useBookContext from "../hooks/useBookContext";
+import { useLocation } from "react-router-dom";
+import './BookList.css'
 
-const Book = ({ book, addToCart }) => {
+const Book = ({ book }) => {
   const [like, setLike] = useState(false);
+  const { added, setAdded } = useBookContext();
+
+  const location = useLocation();
+
+  const handleAdded = () => {
+    const isExist = added.some(b => b.title === book.title);
+  
+    setLike(prev => !prev);
+  
+    if (!isExist) {
+      setAdded(prev => [...prev, book]);
+    } else {
+      setAdded(prev => prev.filter(b => b.title !== book.title));
+    }
+  };
+  
+  const removeFavorite = () => {
+    setAdded(prev => prev.filter(b => b.title !== book.title))
+  }
+
+  useEffect(() => {
+    const isExist = added.some(b => b.title === book.title);
+    setLike(isExist);
+  }, [added, book.title]);
 
   return (
     <div className="book-container">
@@ -28,19 +55,24 @@ const Book = ({ book, addToCart }) => {
           )}
           <CiHeart
             className={like ? "liked" : ""}
-            onClick={() => {
-              setLike((prev) => !prev);
-              if (like) {
-                addToCart(book.title, false);
-              } else {
-                addToCart(book.title, true);
-              }
-            }}
+            onClick={handleAdded}
           />
+          {like && location.pathname === "/favorites" && (
+            <button className="no-books" onClick={removeFavorite}>Remove book from Favorites</button>
+          )}
         </div>
       </div>
     </div>
   );
+};
+
+Book.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author_name: PropTypes.arrayOf(PropTypes.string),
+    first_publish_year: PropTypes.number,
+    cover_i: PropTypes.number,
+  }).isRequired,
 };
 
 export default Book;
