@@ -13,25 +13,25 @@ const Book = ({ book }) => {
   const location = useLocation();
 
   const handleAdded = () => {
-    const isExist = added.some(b => b.title === book.title);
+    const isExist = added.some(b => (b.title === book.title) && (b.author_name === book.author_name));
   
     setLike(prev => !prev);
   
     if (!isExist) {
       setAdded(prev => [...prev, book]);
     } else {
-      setAdded(prev => prev.filter(b => b.title !== book.title));
+      setAdded(prev => prev.filter(b => (b.title !== book.title) && (b.author_name !== book.author_name)));
     }
   };
   
   const removeFavorite = () => {
-    setAdded(prev => prev.filter(b => b.title !== book.title))
+    setAdded(prev => prev.filter(b => (b.title !== book.title) && (b.author_name !== book.author_name)))
   }
 
   useEffect(() => {
-    const isExist = added.some(b => b.title === book.title);
+    const isExist = added.some(b => (b.title === book.title) && (b.author_name === book.author_name));
     setLike(isExist);
-  }, [added, book.title]);
+  }, [added, book.title, book.author_name]);
 
   return (
     <div className="book-container">
@@ -66,13 +66,6 @@ const Book = ({ book }) => {
   );
 };
 
-Book.propTypes = {
-  book: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    author_name: PropTypes.arrayOf(PropTypes.string),
-    first_publish_year: PropTypes.number,
-    cover_i: PropTypes.number,
-  }).isRequired,
-};
+
 
 export default Book;
