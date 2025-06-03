@@ -7,31 +7,28 @@ import { useLocation } from "react-router-dom";
 import './BookList.css'
 
 const Book = ({ book }) => {
+  const location = useLocation();
   const [like, setLike] = useState(false);
   const { added, setAdded } = useBookContext();
+  
+  const isExist = added.some(b => (b.title === book.title) && (b.author_name === book.author_name));
 
-  const location = useLocation();
-
-  const handleAdded = () => {
-    const isExist = added.some(b => (b.title === book.title) && (b.author_name === book.author_name));
-  
-    setLike(prev => !prev);
-  
-    if (!isExist) {
-      setAdded(prev => [...prev, book]);
-    } else {
-      setAdded(prev => prev.filter(b => (b.title !== book.title) && (b.author_name !== book.author_name)));
-    }
-  };
-  
   const removeFavorite = () => {
     setAdded(prev => prev.filter(b => (b.title !== book.title) && (b.author_name !== book.author_name)))
   }
 
+  const handleAdded = () => {  
+    setLike(prev => !prev);
+    if (!isExist) {
+      setAdded(prev => [...prev, book]);
+    } else {
+      removeFavorite;
+    }
+  };
+
   useEffect(() => {
-    const isExist = added.some(b => (b.title === book.title) && (b.author_name === book.author_name));
     setLike(isExist);
-  }, [added, book.title, book.author_name]);
+  }, [isExist]);
 
   return (
     <div className="book-container">
@@ -66,6 +63,13 @@ const Book = ({ book }) => {
   );
 };
 
-
+Book.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author_name: PropTypes.arrayOf(PropTypes.string),
+    cover_i: PropTypes.number,
+    first_publish_year: PropTypes.number,
+  }).isRequired,
+};
 
 export default Book;

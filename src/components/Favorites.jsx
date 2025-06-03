@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import BookList from "./BookList";
-import './BookList.css';
+import './Favorites.css';
 import PropTypes from "prop-types";
 
 const Contact = ({ className }) => {
@@ -10,18 +10,19 @@ const Contact = ({ className }) => {
       navigate('/');
     };
   
-    return <button className={className} onClick={handleSubmit}>Submit</button>;
+    return <button className={className} onClick={handleSubmit}>Go Back</button>;
 }
 
 const Favorites = () => {
-
     return (
         <div className="centered">
-          <BookList className="book-list" isFavorite/>
-            {/* <div className="centered">
-              <p className="no-books">⚠️ No book has been added</p>
-            </div> */}
-          <Contact className="return"/>
+          <div className="content-wrapper">
+            <Contact className="return"/>
+            <BookList className="book-list" isFavorite/>
+              {/* <div className="centered">
+                <p className="no-books">⚠️ No book has been added</p>
+              </div> */}
+          </div>
         </div>
       );
 }

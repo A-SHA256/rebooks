@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import Book from "./Book";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./BookList.css";
 import useBookContext from "../hooks/useBookContext";
+import getBooks from "../apis/api.js";
 
 const BookList = ({ className, isFavorite }) => {
   const [books, setBooks] = useState([]);
@@ -14,24 +14,20 @@ const BookList = ({ className, isFavorite }) => {
 
   useEffect(() => {
     if (!query) return;
-    const getBooks = async () => {
+  
+    const fetchBooks = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `https://openlibrary.org/search.json?limit=20&title=${encodeURIComponent(query)}`,
-        );
-        if (res.status !== 200) {
-          throw new Error(`The error status is ${res.status}`);
-        }
-        setBooks(res.data.docs);
+        const books = await getBooks(query);
+        setBooks(books);
       } catch (error) {
-        console.log(error.message);
-        return null;
+        console.error(error.message);
       } finally {
         setLoading(false);
       }
     };
-    getBooks();
+  
+    fetchBooks();
   }, [query]);
 
   return (

@@ -18,7 +18,6 @@ const Cart = ({ className }) => {
   );
 };
 
-
 Cart.propTypes = {
   className: PropTypes.string,
 };
